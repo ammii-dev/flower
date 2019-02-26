@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "core",
+    'rest_framework',
+    'rest_framework.authtoken',
+    'core',
+    'user',
+
 ]
 
 MIDDLEWARE = [
@@ -76,11 +80,15 @@ WSGI_APPLICATION = 'flower_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+            'ENGINE': 'djongo',
+            'NAME': 'flower2',
+            'HOST': '192.168.14.167',
+            'PORT': 26016,
+            'USER': 'root',
+            'PASSWORD': '1234',
 
+        }
+}
 
 
 
