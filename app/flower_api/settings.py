@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'core',
     'user',
-
+    'escort',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -81,8 +82,8 @@ WSGI_APPLICATION = 'flower_api.wsgi.application'
 DATABASES = {
     'default': {
             'ENGINE': 'djongo',
-            'NAME': 'flower2',
-            'HOST': '192.168.14.167',
+            'NAME': 'flower',
+            'HOST': '192.168.1.150',
             'PORT': 26016,
             'USER': 'root',
             'PASSWORD': '1234',

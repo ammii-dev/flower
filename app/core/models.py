@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
+from django.conf import settings
 
 
 class UserManager(BaseUserManager):
@@ -31,8 +32,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    who = models.CharField(max_length=255)
+    who = models.CharField(max_length=20)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+
+class Escort(models.Model):
+    """Tag to be used for a recipe"""
+    name = models.CharField(max_length=255)
+    age = models.IntegerField()
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        unique=True,
+    )
+
+    def __str__(self):
+        return self.name

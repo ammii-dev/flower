@@ -55,23 +55,6 @@ class PublicUserApiTests(TestCase):
         )
         self.assertNotIn('password', res.data)
 
-    def test_create_user_invalid_who_field(self):
-        """Test that email and password are required"""
-        payload = {
-            'email': 'test@londonappdev.com',
-            'password': 'testpass',
-            'name': 'fname',
-            'who': 'test',
-        }
-        res = self.client.post(CREATE_USER_URL, payload)
-
-        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        user = get_user_model().objects.get(**res.data)
-        self.assertTrue(
-            user.check_password(payload['password'])
-        )
-        self.assertNotIn('password', res.data)
-
     def test_user_exists(self):
         """Test creating a user that already exists fails"""
         payload = {'email': 'test@londonappdev.com', 'password': 'testpass'}
