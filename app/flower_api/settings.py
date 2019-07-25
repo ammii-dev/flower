@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'core',
     'user',
     'escort',
+    'rest_registration',
 ]
 
 
@@ -83,12 +84,13 @@ DATABASES = {
     'default': {
             'ENGINE': 'djongo',
             'NAME': 'flower',
-            'HOST': '192.168.1.150',
-            'PORT': 26016,
+            'HOST': '192.168.13.65',
+            'PORT': 27017,
             'USER': 'root',
             'PASSWORD': '1234',
 
         }
+
 }
 
 
@@ -130,5 +132,30 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = '/vol/web/media'
+STATIC_ROOT = '/vol/web/static'
 
 AUTH_USER_MODEL = 'core.User'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+def get_frontend_url(uri):
+    return 'http://localhost:3000{uri}'.format(uri=uri)
+
+
+REST_REGISTRATION = {
+'REGISTER_SERIALIZER_CLASS': 'user.serializers.UserSerializer',
+    'REGISTER_VERIFICATION_URL': get_frontend_url('/verify-user/'),
+    'RESET_PASSWORD_VERIFICATION_URL': get_frontend_url('/verify-reset-password/'),  # noqa
+    'REGISTER_EMAIL_VERIFICATION_URL': get_frontend_url('/verify-email/'),
+    'VERIFICATION_FROM_EMAIL': 'empatcharapon@gmail.com',
+    
+
+}
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'empatcharapon@gmail.com'
+EMAIL_HOST_PASSWORD = 'emmy044274397'
+EMAIL_PORT = 587

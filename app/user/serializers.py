@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model, authenticate
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
+from core.models import Escort
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -53,3 +54,12 @@ class AuthTokenSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+
+
+class EditUserSerializer(serializers.ModelSerializer):
+    """Serializer for uploading images to user"""
+
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'name', 'image')
+        read_only_fields = ('id',)

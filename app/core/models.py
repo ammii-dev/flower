@@ -2,6 +2,18 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
 from django.conf import settings
+import uuid
+import os
+
+
+def user_image_file_path(instance, filename):
+    """Generate file path for new recipe image"""
+    ext = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{ext}'
+
+    return os.path.join('uploads/user/', filename)
+
+
 
 
 class UserManager(BaseUserManager):
@@ -33,6 +45,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     who = models.CharField(max_length=20)
+    image = models.ImageField(null=True, upload_to=user_image_file_path)
+    awards = models.CharField(max_length=20)
+    points = models.IntegerField()
+    # escorts = models.ManyToManyField('Escort', related_name='+')
 
     objects = UserManager()
 
@@ -49,5 +65,5 @@ class Escort(models.Model):
         unique=True,
     )
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
