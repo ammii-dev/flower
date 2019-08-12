@@ -5,6 +5,10 @@ from django.conf import settings
 import uuid
 import os
 
+GENDER_CHOICES = [
+    ('M', 'Male'),
+    ('F', 'Female'),
+]
 
 def user_image_file_path(instance, filename):
     """Generate file path for new recipe image"""
@@ -13,6 +17,12 @@ def user_image_file_path(instance, filename):
 
     return os.path.join('uploads/user/', filename)
 
+def escort_image_file_path(instance, filename):
+    """Generate file path for new recipe image"""
+    ext = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{ext}'
+
+    return os.path.join('uploads/escort/', filename)
 
 
 
@@ -58,7 +68,23 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Escort(models.Model):
     """Tag to be used for a recipe"""
     name = models.CharField(max_length=255)
+    price = models.IntegerField(blank=True, default=0)
+    shape = models.CharField(max_length=20, blank=True)
+    height = models.IntegerField(blank=True, default=0)
+    weight = models.IntegerField(blank=True, default=0)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES ,blank=True)
     age = models.IntegerField()
+    isVerified = models.BooleanField(default=False)
+    image = models.ImageField(null=True, upload_to=escort_image_file_path) 
+    contact_line = models.CharField(max_length=30,blank=True)
+    contact_phone = models.CharField(max_length=10 ,blank=True)
+    status = models.CharField(max_length=10, default="available")
+    viewscount = models.IntegerField(default=0)
+    zone = models.CharField(max_length=100, blank=True)
+    location = models.CharField(max_length=100, blank=True)
+    excerpt = models.CharField(max_length=100, blank=True)
+    desc = models.CharField(max_length=255, blank=True)
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

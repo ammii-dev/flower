@@ -8,5 +8,24 @@ class EscortsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Escort
-        fields = ('id', 'name', 'age')
+        fields = (
+        'id', 
+        'name', 
+        'price', 
+        'shape', 
+        'height', 
+        'height', 
+        'gender', 
+        'age', 
+        'isVerified', 
+        'image', 
+        'contact_line', 
+        'contact_phone', 
+        'status', 
+        'viewscount', 
+        'zone', 
+        'location', 
+        'excerpt',
+        'desc'
+        )
         read_only_Fields = ('id')

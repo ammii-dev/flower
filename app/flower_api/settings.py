@@ -84,7 +84,7 @@ DATABASES = {
     'default': {
             'ENGINE': 'djongo',
             'NAME': 'flower',
-            'HOST': '192.168.13.65',
+            'HOST': '192.168.1.150',
             'PORT': 27017,
             'USER': 'root',
             'PASSWORD': '1234',
